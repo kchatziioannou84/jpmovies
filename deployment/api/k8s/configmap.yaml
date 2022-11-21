@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: movies-api
+data:
+  MOVIES_DB_USER: "root"
+  MOVIES_DB_HOST: "mysql"
+  MOVIES_DB_PORT: "3306"
+  MOVIES_DB_NAME: "movies"

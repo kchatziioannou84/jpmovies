@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+##############################
+# Script to lint the project #
+##############################
+[ "${DEBUG}" = "1" ] && set -x
+set -eEuo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+PROJECT_DIR="${SCRIPT_DIR}/.."
+
+docker build -t movies-worker:local -f "${PROJECT_DIR}/deployment/worker/Dockerfile" "${PROJECT_DIR}"
+
+docker build -t movies-api:local -f "${PROJECT_DIR}/deployment/api/Dockerfile" "${PROJECT_DIR}"
+

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+###########################
+# Script to start the api #
+###########################
+[ "${DEBUG}" = "1" ] && set -x
+set -eEuo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+#python3 "${SCRIPT_DIR}/../run_api.py"
+flask --app jpmovies.api --debug run --port 8080

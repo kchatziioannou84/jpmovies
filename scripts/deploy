@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+##############################
+# Script to lint the project #
+##############################
+[ "${DEBUG}" = "1" ] && set -x
+set -eEuo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+PROJECT_DIR="${SCRIPT_DIR}/.."
+
+kubectl replace -f "${PROJECT_DIR}/deployment/worker/k8s/deployment.yaml" --force
+kubectl replace -f "${PROJECT_DIR}/deployment/worker/k8s/configmap.yaml" --force
+kubectl replace -f "${PROJECT_DIR}/deployment/api/k8s/deployment.yaml" --force
+kubectl apply -f "${PROJECT_DIR}/deployment/api/k8s/service.yaml" 

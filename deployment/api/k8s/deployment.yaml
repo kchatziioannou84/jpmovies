@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-api
+  labels:
+    app: movies-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: movies-api
+  template:
+    metadata:
+      labels:
+        app: movies-api
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: movies-api
+        image: movies-api:local
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        envFrom:
+        - configMapRef:
+            name: movies-worker
+        - secretRef:
+            name: movies-worker
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"

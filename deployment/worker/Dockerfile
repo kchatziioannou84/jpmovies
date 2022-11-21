@@ -1,0 +1,19 @@
+FROM python:3.10.8-slim@sha256:14f47505ae036cc75cdefbfd4c734682c0411b4109bc0419db0f17f8a8624f66
+
+WORKDIR /app
+
+RUN groupadd -g 999 app && useradd -r -u 999 -g app app
+
+RUN python3 -m venv /app/venv
+
+COPY requirements/base.txt requirements.txt
+
+RUN /app/venv/bin/pip install -r requirements.txt
+
+COPY jpmovies ./jpmovies
+
+COPY run_worker.py .
+
+USER 999
+
+ENTRYPOINT [ "/app/venv/bin/python3", "/app/run_worker.py" ]

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-worker
+  labels:
+    app: movies-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movies-worker
+  template:
+    metadata:
+      labels:
+        app: movies-worker
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: movies-worker
+        image: movies-worker:local
+        envFrom:
+        - configMapRef:
+            name: movies-worker
+        - secretRef:
+            name: movies-worker
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"

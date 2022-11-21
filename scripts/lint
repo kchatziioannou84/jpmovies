@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+##############################
+# Script to lint the project #
+##############################
+[ "${DEBUG}" = "1" ] && set -x
+set -eEuo pipefail
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+pylint "${SCRIPT_DIR}/../run_worker.py"  "${SCRIPT_DIR}/../jpmovies"
+Flake8 "${SCRIPT_DIR}/../run_worker.py"  "${SCRIPT_DIR}/../jpmovies"
+
+echo "ok"

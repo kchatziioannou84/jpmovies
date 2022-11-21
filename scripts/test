@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+###################################
+# Script to run the project tests #
+###################################
+set -e
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo "Sorry no tests has been added :("
